@@ -68,3 +68,10 @@ CREATE TABLE `answer_table` (
 )
 ENGINE = InnoDB;
 
+
+
+INSERT INTO `perm_master` (`perm_id`, `perm_code`, `perm_desc`, `perm_order`, `perm_label`, `perm_parent`, `perm_class`, `perm_url`, `perm_status`, `perm_attr`, `perm_icon`, `last_updated_id`, `last_updated_date`)
+ VALUES (NULL, 'SUBJECTS_LIST', 'Subjects list', '4', '4', '2', NULL, 'subjects-list', 'Active', NULL, NULL, NULL, current_timestamp()); 
+ 
+INSERT INTO `role_perm` (`role_perm_id`, `role_id`, `perm_id`, `status`, `last_updated_id`, `last_updated_date`, `access_perm`) 
+VALUES (NULL, '1', '5', 'Active', '1', current_timestamp(), '1'); 

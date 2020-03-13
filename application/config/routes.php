@@ -59,6 +59,8 @@ $route['exams-list'] = "home/exam_details/index";
 $route['fetch-exam-data'] = "home/exam_details/fetch_exam_data";
 $route['check_exam_title'] = "home/exam_details/check_exam_title";
 $route['save_exam_data'] = "home/exam_details/save_exam_data";
+$route['subjects-list'] = "home/subjects/index";
+$route['fetch-subject-data'] = "home/subjects/fetch_subject_data";
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
