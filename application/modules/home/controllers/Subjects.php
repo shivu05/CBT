@@ -38,4 +38,25 @@ class Subjects extends SHV_Controller {
         }
     }
 
+    function check_if_data_exists() {
+        if ($this->input->is_ajax_request()) {
+            $column_name = $this->input->post('column_name');
+            $column_value = $this->input->post($column_name);
+            $is_exists = $this->subject->check_if_coulmn_data_exists($column_name, $column_value);
+            echo json_encode($is_exists);
+        } else {
+            $this->layout->render(array('error' => '401'));
+        }
+    }
+
+    function save_subject() {
+        $post_val = $this->input->post();
+        $is_inserted = $this->subject->save($post_val);
+        if ($is_inserted) {
+            echo json_encode(array('status' => 'true'));
+        } else {
+            echo json_encode(array('status' => 'false'));
+        }
+    }
+
 }

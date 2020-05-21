@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
-            <div class="box-header with-border"><h3 class="box-title">Subjects List:</h3>
-                <button class="btn btn-primary btn-sm pull-right" type="button" id="add_new_sub"><i class="fa fa-plus-circle"></i> Add</button></div>
+            <div class="box-header with-border"><h3 class="box-title">Subjects List:</h3></div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -13,7 +12,21 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        
+                        <h4>Add new subject:</h4>
+                        <form method="POST" class="card" name="add_subject" id="add_subject">
+                            <div class="form-group">
+                                <label for="subject_name">Subject Name:</label>
+                                <input type="text" class="form-control required" name="subject_name" id="subject_name" placeholder="Subject name">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject_code">Subject Code</label>
+                                <input type="text" class="form-control required" name="subject_code" id="subject_code" placeholder="Subject Code">
+                            </div>
+                            <div class="form-group pull-right">
+                                <button type="reset" class="btn btn-secondary" id="reset" name="reset">Reset</button>
+                                <button type="button" class="btn btn-primary" id="btn-ok">Save</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -25,52 +38,58 @@
     var data_grid = '';
     $(document).ready(function () {
 
-        $('#add_exam_modal_box #add_exam_form #exam_title').keyup(function () {
-            $('#add_exam_modal_box #add_exam_form #exam_code').val($(this).val().replace(/ /g, "_").toUpperCase());
+        $('#add_subject #subject_code').keyup(function () {
+            $('#add_subject #subject_code').val($(this).val().replace(/ /g, "_").toUpperCase());
         });
 
-        var validator = $('#add_exam_form').validate({
+        var validator = $('#add_subject').validate({
             rules: {
-                exam_title: {
+                subject_name: {
                     remote: {
-                        url: base_url + 'check_exam_title',
-                        type: 'POST'
-                    }
+                        url: base_url + 'check_if_data_exists',
+                        type: 'POST',
+                        data: {
+                            column_name: function () {
+                                return 'subject_name';
+                            }
+                        }
+                    },
+                    minlength: 3
                 },
-                exam_duration: {
-                    digits: true
+                subject_code: {
+                    remote: {
+                        url: base_url + 'check_if_data_exists',
+                        type: 'POST',
+                        data: {
+                            column_name: function () {
+                                return 'subject_code';
+                            }
+                        }
+                    }
                 }
             },
             messages: {
-                exam_title: {
-                    remote: 'This title already exists please use different title',
+                subject_name: {
+                    remote: 'This Subject name already exists',
+                },
+                subject_code: {
+                    remote: 'This Subject code already exists',
                 }
             }
         });
 
-        $('#add_new_exam').on('click', function () {
-//            validator.resetForm();
-//            $("label.error").hide();
-//            $(".error").removeClass("error");
-            $('#add_exam_modal_box').modal({
-                keyboard: false,
-                backdrop: 'static'
-            }, 'show');
-        });
-
-
-
-        $('#add_exam_modal_box').on('click', '#btn-ok', function () {
-            if ($('#add_exam_form').valid()) {
-                var form_data = $('#add_exam_form').serializeArray();
+        $('#add_subject').on('click', '#btn-ok', function () {
+            if ($('#add_subject').valid()) {
+                var form_data = $('#add_subject').serializeArray();
                 $.ajax({
-                    url: base_url + 'save_exam_data',
+                    url: base_url + 'save_subject',
                     type: 'POST',
                     dataType: 'json',
                     data: form_data,
                     success: function (response) {
                         if (response.status) {
                             display_grid();
+                            $('#add_subject #reset').trigger('click');
                         } else {
                             alert('error in saving');
                         }

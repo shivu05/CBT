@@ -61,6 +61,11 @@ $route['check_exam_title'] = "home/exam_details/check_exam_title";
 $route['save_exam_data'] = "home/exam_details/save_exam_data";
 $route['subjects-list'] = "home/subjects/index";
 $route['fetch-subject-data'] = "home/subjects/fetch_subject_data";
+$route['save_subject'] = "home/subjects/save_subject";
+$route['check_if_data_exists'] = "home/subjects/check_if_data_exists";
+$route['create_qp'] = "home/questions/create_question_paper";
+$route['generate_questions'] = "home/questions/generate_questions_form";
+$route['save_questions'] = "home/questions/save_questions";
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

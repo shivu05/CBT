@@ -22,4 +22,18 @@ class Subject extends CI_Model {
         return $result;
     }
 
+    function check_if_coulmn_data_exists($column_name = NULL, $value = '') {
+        $this->db->where($column_name, $value);
+        $n = $this->db->get($this->_db_table)->num_rows();
+        if ($n > 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    function save($post_values) {
+        return $this->db->insert($this->_db_table, $post_values);
+    }
+
 }

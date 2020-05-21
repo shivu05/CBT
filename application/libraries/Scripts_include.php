@@ -52,7 +52,10 @@ class Scripts_include {
             '/assets/plugins/typeahead/typeahead.js',
         ),
         'chartjs' => array(
-        )
+        ),
+        'ckeditor' => array(
+            '/assets/ckeditor/ckeditor.js'
+        ),
     );
     private $__cssFiles = array(
         'common' => array(
